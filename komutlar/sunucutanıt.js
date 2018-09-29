@@ -4,7 +4,7 @@ exports.run = async (client, message, args) => {
     const asdf = await client.channels.get(message.channel.id).createInvite()
   message.delete();
   const embed = new Discord.RichEmbed()
-  .setTitle("» Poly | Sunucu Tanıt")
+  .setTitle("» Crystal | Sunucu Tanıt")
   .setDescription("**Sunucun Tanıtıldı » https://discord.gg/jxyr6UZ**")
   .setFooter("Sunucu Tanıtıldı")
  message.channel.send(embed)
