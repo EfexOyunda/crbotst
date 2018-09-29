@@ -1,28 +1,73 @@
-const Discord = require("discord.js");
-const moment = require("moment");
-require("moment-duration-format");
+const Discord = require("discord.js")
 
-exports.run = (client, msg) => {
-  const duration = moment.duration(client.uptime).format(" D [gün], H [saat], m [dakika], s [saniye]");
-  msg.channel.sendCode("asciidoc", `= Crystal İstatistikler =
-• Bellek kullanımı :: ${(process.memoryUsage().heapUsed / 1024 / 1024).toFixed(2)} MB
-• Çalışma süresi   :: ${duration}
-• Kullanıcılar     :: ${client.guilds.reduce((a, b) => a + b.memberCount, 0).toLocaleString()}
-• Sunucular        :: ${client.guilds.size.toLocaleString()}
-• Kanallar         :: ${client.channels.size.toLocaleString()}
-• Discord.JS sürüm :: v${Discord.version}
-• Ping             :: ${client.ping}`);
-};
+const { version } = require("discord.js");
+const moment = require("moment");
+const m = require("moment-duration-format");
+let os = require('os')
+let cpuStat = require("cpu-stat")
+const ms = require("ms")
+const ayarlar = require('../ayarlar.json');
+
+var prefix = ayarlar.prefix;
+
+exports.run = (client, message, params) => {
+    let cpuLol;
+  if (!params[0]) {
+    const commandNames = Array.from(client.commands.keys());
+    const longest = commandNames.reduce((long, str) => Math.max(long, str.length), 0);
+    const duration = moment.duration(client.uptime).format(" D [gün], H [saat], m [dakika], s [saniye]");
+	message.channel.send({embed: {
+            color: 0xD97634,
+            author: {
+              name: "CrystalBot İstatistik",
+              icon_url: "https://cdn.discordapp.com/avatars/492743235555426334/36dca918a5851eb12f3947f78a07944c.png?size=2048"
+            },
+            title: "Ping Durumu :",
+            description: `**${Math.round(client.ping)}**`,
+            fields: [
+      {
+                name: "Sunucu Sayısı :",
+                value: `**${client.guilds.size.toLocaleString()}**`
+              },     
+			{
+                name: "Kullanıcı Sayısı :",
+                value: `**${client.guilds.reduce((a, b) => a + b.memberCount, 0).toLocaleString()}**`
+              },
+			{
+                name: "Bellek Kullanımı :",
+                value: `**${(process.memoryUsage().heapUsed / 1024 / 1024).toFixed(2)} MB** / **32 GB**`
+              },
+			{
+                name: "CPU :",
+                value: `**${os.cpus().map(i => `${i.model}`)[0]}**`
+              },
+			{
+                name: "Çalışma Süresi :",
+                value: `**${duration}**`
+              },
+			{
+                name: "Node.JS Sürümü :",
+                value: `**${process.version}**`
+              },
+            ],
+            timestamp: new Date(),
+            footer: {
+              icon_url: "",
+              text: "© Truva"
+            }
+          }
+        });  
+  }};
 
 exports.conf = {
   enabled: true,
   guildOnly: false,
-  aliases: ['bot durum', 'i', 'bi', 'istatistikler', 'kullanımlar', 'botdurum', 'bd', 'istatisik', 'stats', 'stat'],
+  aliases: ['i', 'istatik', 'botbilgi', 'bb'],
   permLevel: 0
 };
 
 exports.help = {
   name: 'istatistik',
-  description: 'Botun istatistik gösterir.',
+  description: 'Tüm komutları gösterir.',
   usage: 'istatistik'
 };
