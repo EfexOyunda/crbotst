@@ -9,7 +9,7 @@ exports.run = async (client, message, args) => {
   .setFooter("Sunucu Tanıtıldı")
  message.channel.send(embed)
       const invite = new Discord.RichEmbed()
-  .setAuthor("» Poly | Sunucu Tanıt")
+  .setAuthor("» Crystal | Sunucu Tanıt")
   .addField('**» Tanıtan: **', message.author.username + '#' + message.author.discriminator)
   .addField('**» Sunucu Adı: **', message.guild.name)
   .setDescription(asdf.url)
