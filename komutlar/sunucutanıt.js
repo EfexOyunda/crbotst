@@ -1,11 +1,11 @@
 const Discord = require('discord.js');
 exports.run = async (client, message, args) => {
-  var channel = client.channels.find('id', '494876316332589057')
+  var channel = client.channels.find('id', '495637824997949465')
     const asdf = await client.channels.get(message.channel.id).createInvite()
   message.delete();
   const embed = new Discord.RichEmbed()
   .setTitle("» Poly | Sunucu Tanıt")
-  .setDescription("**Sunucun Tanıtıldı » https://discord.gg/MNpCYxz**")
+  .setDescription("**Sunucun Tanıtıldı » https://discord.gg/jxyr6UZ**")
   .setFooter("Sunucu Tanıtıldı")
  message.channel.send(embed)
       const invite = new Discord.RichEmbed()
